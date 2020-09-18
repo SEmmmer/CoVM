@@ -29,10 +29,10 @@ var opcode = {
     LT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) < reg), array.pop_back(stack), array.push_back(stack, reg))),
     LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) <= reg), array.pop_back(stack), array.push_back(stack, reg))),
     GT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) > reg), array.pop_back(stack), array.push_back(stack, reg))),
-    LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg)))
+    LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg))),
 
-    CALL: (),
-    RET:  ()
+    CALL: ([](stack) -> (reg = array.back(stack), array.pop_back(stack), array.push_back(array.size - 1), next = array.at(reg))),
+    RET:  ([](stack) -> (next = array.back(stack), array.pop_back(stack)))
 }.to_hash_map()
 @end
 
@@ -47,7 +47,8 @@ end
 
 
 function main()
-
+eval({PUSH, 10, PUSH, 20, ADD, EXIT})
+eval({PUSH, , CALL, EXIT})
 
 end
 
