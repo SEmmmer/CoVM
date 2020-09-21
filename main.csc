@@ -11,8 +11,8 @@ var opcode = {
     JMP:  ([](stack) -> (next = array.begin(code) + array.iterator.data(next), array.pop_back(stack))),
     EXIT: ([](stack) -> (system.out.println("exit(" + array.back(stack) + ")"), array.pop_back(stack))),
 
-    JZ:   ([](stack) -> (next = array.iterator.next(next) ? : )),
-    JNZ:  ([](stack) -> ((reg = array.back(stack) ? stack.at(reg) : array.iterator.next(next)))),
+    JZ:   ([](stack) -> ((array.back(stack) == 0) ? array.begin(code) + array.iterator.data(next) : next = array.iterator.next(next), array.pop_back(stack))),
+    JNZ:  ([](stack) -> ((array.back(stack) == 0) ? array.begin(code) + array.iterator.data(next) : next = array.iterator.next(next), array.pop_back(stack))),
 
     ADD:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg += array.back(stack), array.pop_back(stack), array.push_back(stack, reg))),
     SUB:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = array.back(stack) - reg, array.pop_back(stack), array.push_back(stack, reg))),
@@ -29,7 +29,7 @@ var opcode = {
     LT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) < reg), array.pop_back(stack), array.push_back(stack, reg))),
     LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) <= reg), array.pop_back(stack), array.push_back(stack, reg))),
     GT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) > reg), array.pop_back(stack), array.push_back(stack, reg))),
-    LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg)))
+    GE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg)))
 }.to_hash_map()
 @end
 
