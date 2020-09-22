@@ -9,8 +9,10 @@ end
 
 # ADD            stack: ..., a, b           -> ..., a+b
 # SUB            stack: ..., a, b           -> ..., a-b
+# NEG            stack: ..., a              -> ..., -a
 # MUL            stack: ..., a, b           -> ..., a*b
 # DIV            stack: ..., a, b           -> ..., a/b
+# IDIV           stack: ..., a: Int, b: Int -> ..., a/b: Int
 # MOD            stack: ..., a, b           -> ..., a%b
 
 # PUSH <IMM>     stack: ...                 -> ..., IMM
@@ -30,13 +32,17 @@ end
 # JZ <OFFSET>    stack: ..., a              -> ...
 # JNZ <OFFSET>   stack: ..., a              -> ...
 
+# DUP            stack: ..., a              -> ..., a, a
+# SWAP           stack: ..., a, b           -> ..., b, a
+
 @begin
 Enum({
-    "ADD", "SUB", "MUL", "DIV", "MOD",
+    "ADD", "SUB", "NEG", "MUL", "DIV", "IDIV", "MOD",
     "PUSH", "POP", "JMP", "EXIT",
     "AND", "OR",
     "EQ", "NE",
     "LT", "GT", "LE", "GE",
-    "JZ", "JNZ"
+    "JZ", "JNZ",
+    "DUP", "SWAP"
 })
 @end

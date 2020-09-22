@@ -16,8 +16,10 @@ var opcode = {
 
     ADD:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg += array.back(stack), array.pop_back(stack), array.push_back(stack, reg))),
     SUB:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = array.back(stack) - reg, array.pop_back(stack), array.push_back(stack, reg))),
+    NEG:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), array.push_back(stack, -reg))),
     MUL:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg *= array.back(stack), array.pop_back(stack), array.push_back(stack, reg))),
     DIV:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = array.back(stack) / reg, array.pop_back(stack), array.push_back(stack, reg))),
+    IDIV: ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = to_integer(to_integer(array.back(stack)) / to_integer(reg)), array.pop_back(stack), array.push_back(stack, reg))),
     MOD:  ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = array.back(stack) % reg, array.pop_back(stack), array.push_back(stack, reg))),
 
     OR:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) or reg), array.pop_back(stack), array.push_back(stack, reg))),
@@ -29,7 +31,10 @@ var opcode = {
     LT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) < reg), array.pop_back(stack), array.push_back(stack, reg))),
     LE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) <= reg), array.pop_back(stack), array.push_back(stack, reg))),
     GT:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) > reg), array.pop_back(stack), array.push_back(stack, reg))),
-    GE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg)))
+    GE:   ([](stack) -> (reg = array.back(stack), array.pop_back(stack), reg = (array.back(stack) >= reg), array.pop_back(stack), array.push_back(stack, reg))),
+
+    DUP:  ([](stack) -> (reg = array.back(stack), array.push_back(stack, reg))),
+    SWAP: ([](stack) -> (swap(stack[size(stack) - 1], stack[size(stack) - 2])))
 }.to_hash_map()
 @end
 
